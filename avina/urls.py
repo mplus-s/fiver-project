@@ -16,17 +16,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
-from rest_framework_swagger.views import get_swagger_view
-
-schema_view = get_swagger_view(title='Avina Api')
+from django.conf import settings
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'', schema_view),
     url(r'', include('djoser.urls')),
     url(r'^auth/', include('djoser.urls.jwt')),
     url(r'categories/', include("categories.urls"), name="categories"),
     url(r'products/', include("products.urls"), name="products"),
-    url(r'messages/', include("messenger.urls"), name="messenger"),
+    path('messages/', include("messenger.urls"), name="messenger"),
     url(r'', include("users.urls"), name="users"),
 ]
+
+if settings.DEBUG:
+    urlpatterns = urlpatterns + [
+        # YOUR PATTERNS
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    # Optional UI:
+    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    ]

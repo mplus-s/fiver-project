@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'storages',
-    'rest_framework_swagger',
+    'drf_spectacular',
     'rest_framework',
     'djoser',
     'cuser',
@@ -107,10 +107,17 @@ DJOSER = {
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Your Project API',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
+    # OTHER SETTINGS
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

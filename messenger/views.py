@@ -14,9 +14,9 @@ class StartMessaging(generics.CreateAPIView):
 class Conversation(generics.RetrieveAPIView):
     serializer_class = MessageSerializer
     permission_classes = [IsAuthenticated]
-    lookup_field = ["product_uid",]
-    
-        
+    lookup_field = "product_uid"
+
+
     def get_object(self):
         user = self.request.user
         return user.get_messages_for_product(product_uid=self.kwargs["product_uid"])
