@@ -1,0 +1,8 @@
+venv
+*.py[cab]
+.env*
+.vscode
+*sqlite*
+migrations
+uploads/
+target/pylist.json
