@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product
+from .models import Product , CartItem
 from categories.models import Category
 from users.models import User
 from rest_framework import serializers
@@ -17,3 +17,9 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         exclude = ("id", "added_at",)
+
+class CartitemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CartItem
+        fields = '__all__'
+    

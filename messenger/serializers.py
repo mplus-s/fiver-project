@@ -11,7 +11,7 @@ from rest_framework.exceptions import NotAcceptable
 
 class InitializeMessageSerializer(serializers.ModelSerializer):
     sender = serializers.PrimaryKeyRelatedField(
-        read_only=False, queryset=Product.objects.all(), default=serializers.CurrentUserDefault())
+        read_only=False, queryset=User.objects.all(), default=serializers.CurrentUserDefault())
     product = serializers.SlugRelatedField(
         read_only=False, queryset=Product.objects.all(), slug_field="uid")
     messages = serializers.CharField()
@@ -33,12 +33,12 @@ class InitializeMessageSerializer(serializers.ModelSerializer):
             "message": self.validated_data["messages"],
             "sent_at": f"{datetime.now()}"
         }), ]
-        
+ 
         del self.validated_data["sender"]
-        
-        self.validated_data["messages"] = messages
 
-        message = Message.objects.filter(product=product, parties=kwargs["parties"]).first()
+        self.validated_data["messages"] = messages
+        
+        message = Message.objects.filter(product=product, parties__contains=kwargs["parties"]).first()
 
         if message:
             message.messages.append(self.validated_data['messages'][0])
