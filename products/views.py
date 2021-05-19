@@ -7,6 +7,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied
 from users.models import User
+from messenger.models import Message
 
 class ProductList(ModelViewSet):
     queryset = Product.objects.all()
@@ -38,7 +39,5 @@ class CartItemViewSet(ModelViewSet):
     def get_queryset(self):
         return CartItem.objects.filter(user_id=self.request.user.id)
 
-
-    
 
     

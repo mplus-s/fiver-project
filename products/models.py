@@ -23,7 +23,6 @@ class CartItemStatus:
         )
 
 class Product(models.Model):
-    uid = models.CharField(default=generate_uid, unique=True, max_length=255)
     name = models.CharField(max_length=255, null=False)
     price = models.DecimalField(max_digits=10, decimal_places=2,default=0   )    
     category = models.ForeignKey(
