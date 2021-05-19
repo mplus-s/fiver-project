@@ -1,3 +1,4 @@
+from messenger.models import Message
 from rest_framework import serializers
 from .models import Product , CartItem
 from categories.models import Category
@@ -16,10 +17,9 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        exclude = ("id", "added_at",)
+        exclude = ( "added_at",)
 
 class CartitemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
         fields = '__all__'
-    

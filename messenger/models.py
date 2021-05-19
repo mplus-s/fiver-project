@@ -1,22 +1,17 @@
+from django.db.models.fields import related
+from avina.settings import AUTH_USER_MODEL
+from users.models import User
 from django.db import models
-from django.db.models.deletion import SET_NULL
+from django.db.models.deletion import CASCADE, SET_NULL
 from django.contrib.postgres.fields import ArrayField
+
 # Create your models here.``
-
 class Message(models.Model):
-    product = models.ForeignKey("products.Product", on_delete=SET_NULL, related_name="messages", null=True)
-    messages = ArrayField(models.JSONField())
-    parties = ArrayField(models.IntegerField(), size=2)
+    product = models.ForeignKey("products.Product", on_delete=SET_NULL, related_name="product", null=True)
+    seller = models.ForeignKey(AUTH_USER_MODEL,on_delete=CASCADE, related_name="seller", null=False)
+    buyer = models.ForeignKey(User,on_delete=CASCADE,null=False,related_name="buyer")
+    datetime_sent = models.DateTimeField( auto_now_add=True)
+    message = models.CharField( max_length=500)
 
-    @classmethod
-    def get_user_messages(cls, user_id):
-        msgs  = cls.objects.filter(parties__contains=[user_id,]).all()
-        return msgs
-    
-    @classmethod
-    def get_user_messages_for_product(cls, user_id, product_uid):
-        msgs = cls.objects.filter(parties__contains=[user_id,], product__uid=product_uid).first()
-        return msgs
-
-    def __repr__(self):
-        return "product:\t{}\nmessages:\t{}\nparties:\t{}".format(self.product, self.messages, self.parties)
+    class Meta:
+        ordering = ('datetime_sent',)
