@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product , Cart ,CartItem
+from .models import Product , CartItem
 from categories.models import Category
 from users.models import User
 from rest_framework import serializers
@@ -17,23 +17,6 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         exclude = ("id", "added_at",)
-class CartSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Cart
-        fields = '__all__'
-    
-    def validate_cart(self, value):
-        if value == 0:
-            return None
-        return value
-    
-    def validate(self, validated_data):
-        cart = validated_data['cart']
-        customer = validated_data['customer']
-        if cart == None:
-            cart = Cart.objects.create(customer=customer)
-            validated_data['cart'] = cart
-        return validated_data
 
 class CartitemSerializer(serializers.ModelSerializer):
     class Meta:

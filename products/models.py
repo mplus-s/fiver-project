@@ -42,7 +42,7 @@ class Product(models.Model):
         return "Product:\t{}\nDescription:\t{}\nStatus:\t{}".format(self.name, self.description, self.status)
 
 class CartItem(models.Model):
-    cart = models.ForeignKey('products.Cart', on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE,null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     status = models.CharField(choices=CartItemStatus.choices(), max_length=20, default=CartItemStatus.PENDING)
 
@@ -55,15 +55,3 @@ class CartItem(models.Model):
     @property
     def seller(self):
         return self.product.added_by
-
-class Cart(models.Model):
-    customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)#
-    open = models.BooleanField(default=True)
-
-    def add_product(self, product):
-        try:
-            CartItem.objects.create(cart=self, product=product)
-        except Exception as e:
-            raise e
-        else:
-            return True
