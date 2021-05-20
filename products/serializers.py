@@ -1,3 +1,4 @@
+import re
 from messenger.models import Message
 from rest_framework import serializers
 from .models import Product , CartItem
@@ -23,3 +24,9 @@ class CartitemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
         fields = '__all__'
+
+    def validate(self, validated_data):
+        if validated_data["seller_confirmation"] == True & validated_data["buyer_confirmation"] == True:
+            validated_data["status"] = "Sold"
+            return validated_data
+        return validated_data

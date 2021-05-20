@@ -12,7 +12,7 @@ class Message(models.Model):
     buyer = models.ForeignKey(User,on_delete=CASCADE,null=False,related_name="buyer")
     datetime_sent = models.DateTimeField( auto_now_add=True)
     message = models.CharField( max_length=500)
-    sender = models.IntegerField(null=False)
+    sender = models.ForeignKey(AUTH_USER_MODEL,on_delete=CASCADE, related_name="sender", null=False)
 
     class Meta:
         ordering = ('datetime_sent',)
