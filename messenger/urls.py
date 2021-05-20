@@ -4,7 +4,7 @@ from .views import StartMessaging
 # from products.views import TransactionViewSet
 
 urlpatterns = [
-    path('<str:product_id>', StartMessaging.as_view({'get': 'list', 'post': 'create'})),
+    path('<str:product_id>/<str:buyer_id>', StartMessaging.as_view({'get': 'list', 'post': 'create'})),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
