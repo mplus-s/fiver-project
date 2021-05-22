@@ -23,10 +23,10 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2,default=0   )    
     category = models.ForeignKey(
         "categories.Category", on_delete=RESTRICT, related_name="products")
-    photo1 = models.ImageField(upload_to="media/products",default=None)
-    photo2 = models.ImageField(upload_to="media/products",blank=True,null=True,default=None)
-    photo3 = models.ImageField(upload_to="media/products",blank=True,null=True,default=None)
-    photo4 = models.ImageField(upload_to="media/products",blank=True,null=True,default=None)
+    photo1 = models.ImageField(upload_to="products",blank=True,null=True,default=None)
+    photo2 = models.ImageField(upload_to="products",blank=True,null=True,default=None)
+    photo3 = models.ImageField(upload_to="products",blank=True,null=True,default=None)
+    photo4 = models.ImageField(upload_to="products",blank=True,null=True,default=None)
     description = models.TextField()
     added_at = models.DateTimeField(auto_now_add=True)
     added_by = models.ForeignKey(
