@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.http import request
 from rest_framework import generics
 from rest_framework.fields import CurrentUserDefault
 from .models import Product , CartItem
@@ -8,6 +9,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied
 from users.models import User
 from messenger.models import Message
+from django.db.models import Q
+
 
 class ProductList(ModelViewSet):
     queryset = Product.objects.all()
@@ -37,7 +40,18 @@ class CartItemViewSet(ModelViewSet):
     serializer_class = CartitemSerializer
 
     def get_queryset(self):
-        return CartItem.objects.filter(user_id=self.request.user.id)
+        return CartItem.objects.filter(user_id=self.request.user)
+class MyProductCartItemsSet(ModelViewSet):
+    permission_classes = [IsAuthenticated, ]
+    serializer_class = CartitemSerializer
 
+    def get_queryset(self):
+
+        productslis =Product.objects.filter(added_by=self.request.user)
+        queryset = []
+        for a in range(0,len(productslis)):
+            queryset__in = CartItem.objects.get(product_id=productslis[a].id)
+            queryset.append(queryset__in)
+        return queryset
 
     

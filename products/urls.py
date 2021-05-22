@@ -1,11 +1,12 @@
 from django.conf.urls import include
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from .views import  ProductList, ProductDetail
+from .views import  ProductList, ProductDetail ,MyProductCartItemsSet
 
 urlpatterns = [
     path('', ProductList.as_view({'get': 'list', 'post': 'create'})),
     path('<int:pk>/', ProductDetail.as_view()),
+    path('MyConversation/',MyProductCartItemsSet.as_view({'get':'list'}))
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
