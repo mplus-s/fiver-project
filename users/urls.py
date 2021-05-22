@@ -9,6 +9,6 @@ cart_item_router.register('cartitems', CartItemViewSet, basename='cartitems')
 
 urlpatterns = [
     url(r'^users/activate/(?P<uid>[\w-]+)/(?P<token>[\w-]+)/$', UserActivationView.as_view()),
-    path('cart/', include(cart_item_router.urls))
+    path('cart/', include(cart_item_router.urls)),
 
 ]
