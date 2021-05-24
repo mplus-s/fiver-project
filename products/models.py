@@ -37,7 +37,7 @@ class Product(models.Model):
         return "Product:\t{}\nDescription:\t{}".format(self.name, self.description)
 
 class CartItem(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE,null=True)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE,null=False)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     status = models.CharField(choices=CartItemStatus.choices(), max_length=20, default=CartItemStatus.PENDING)
     seller_confirmation = models.BooleanField(default=False)
