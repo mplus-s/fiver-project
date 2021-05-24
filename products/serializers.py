@@ -36,7 +36,7 @@ class CartitemSerializer(serializers.ModelSerializer):
         product_price = CartItem.product.price
         return product_price 
     def get_productImage(self,CartItem):
-        product_image = CartItem.product.photo1
+        product_image = CartItem.product.photo1.url
         return product_image               
     def validate(self, validated_data):
         if validated_data["seller_confirmation"] == True & validated_data["buyer_confirmation"] == True:

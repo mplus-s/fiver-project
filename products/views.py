@@ -46,12 +46,6 @@ class MyProductCartItemsSet(ModelViewSet):
     serializer_class = CartitemSerializer
 
     def get_queryset(self):
-
-        productslis =Product.objects.filter(added_by=self.request.user)
-        queryset = []
-        for a in range(0,len(productslis)):
-            queryset__in = CartItem.objects.get(product_id=productslis[a].id)
-            queryset.append(queryset__in)
+        queryset = CartItem.objects.filter(product__added_by=self.request.user)
         return queryset
-
     
