@@ -93,8 +93,8 @@ DJOSER = {
     'SERIALIZERS': {
             'user_create_password_retype': 'users.serializers.CustomUserCreatePasswordRetypeSerializer',
     },
-    'SEND_ACTIVATION_EMAIL': True,
-    'SEND_CONFIRMATION_EMAIL': True,
+    'SEND_ACTIVATION_EMAIL': False,
+    'SEND_CONFIRMATION_EMAIL': False,
 }
 
 REST_FRAMEWORK = {
