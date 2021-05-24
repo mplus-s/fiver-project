@@ -18,7 +18,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        exclude = ( "added_at",)
+        fields = '__all__'
 
 class CartitemSerializer(serializers.ModelSerializer):
 
